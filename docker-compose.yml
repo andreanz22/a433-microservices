@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  #set service name
+  item-app:
+    #set image from docker hub
+    image: renova22/item-app:v1
+    #set port 8080 container to port 80 host
+    ports:
+      - 80:8080
+    #set workdir container
+    working_dir: /app
+    #set volume container
+    volumes:
+      - ./:/app
+    #run after the item-db service run
+    links: 
+      - item-db
+    restart: on-failure
+  item-db:
+    image: mongo:3
+    volumes:
+      - app-db:/data/db
+    
+#set volume that use to item-db service
+volumes:
+  app-db:
+
